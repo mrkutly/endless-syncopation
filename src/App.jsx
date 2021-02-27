@@ -1,28 +1,25 @@
 import { useEffect } from 'react'
-import Vex from 'vexflow'
-import logo from './logo.svg'
-import { measure } from './lib/utils'
+import * as osmd from 'opensheetmusicdisplay'
+import { appendLine, getDoc } from'./lib/XMLgenerator'
 import './App.css'
 
 const App = () => {
 	useEffect(() => {
-		const vf = new Vex.Flow.Factory({ renderer: { elementId: 'letsgobb' } })
-		const score = vf.EasyScore()
-		const system = vf.System()
-		console.log(measure())
-		system.addStave({
-			voices: [
-				score.voice(
-					score.notes(measure(4), { stem: 'up' })
-				)
-			]
-		}).addClef('percussion').addTimeSignature('4/4')
-		vf.draw()
+		const display = new osmd.OpenSheetMusicDisplay('letsgobb')
+		let doc = getDoc()
+		display.load(doc).then(display.render.bind(display))
+		setInterval(() => {
+			doc = appendLine(doc)
+			display.load(doc).then(() => {
+				display.render()
+				window.scrollTo(0, window.outerHeight)
+			})
+		}, 2000)
 	}, [])
 
 	return (
 		<div className="App">
-			<div id="letsgobb" />
+			<div id="letsgobb" style={{ width: '100vw' }} />
 		</div>
 	)
 }

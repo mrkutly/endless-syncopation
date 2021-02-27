@@ -1,17 +1,35 @@
-import { compose, join, map, replace, times } from 'ramda'
+import * as _ from 'ramda'
 
-const noteOrRest = () => Math.round(Math.random())
-const noteArray = (beats = 4) => times(noteOrRest, beats * 2)
+export const isEven = _.compose(_.equals(0), _.modulo(_.__, 2))
+export const isOdd = _.complement(isEven)
 
-const translateNote = compose(
-	replace(/0/g, 'B4/8/r,'),
-	replace(/1/g, 'B4/8,'),
-	replace(/0 0/g, 'B4/q/r,'),
-	replace(/1 0/g, 'B4/q,'),
-)
-	
-export const measure = compose(translateNote, join(' '), noteArray)
+export const Identity = (x) => ({
+	map: f => Identity(f(x)),
+	fold: f => f(x),
+	chain: f => f(x),
+	toString: `Identity(${x})`,
+})
 
+export const Left = (x) => ({
+	map: f => Left(x),
+	chain: f => Left(x),
+	fold: (f, g) => f(x),
+	toString: `Left(${x})`,
+})
 
- 
+export const Right = (x) => ({
+	map: f => Right(f(x)),
+	chain: f => f(x),
+	fold: (f, g) => g(x),
+	toString: `Right(${x})`,
+})
 
+export const fromNullable = (x) => x != null ? Right(x) : Left()
+
+export const tryCatch = (f) => {
+	try {
+		return Right(f())
+	} catch (error) {
+		return Left(error)
+	}
+}

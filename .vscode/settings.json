@@ -1,6 +1,9 @@
 {
-    "editor.detectIndentation": false,
+	"editor.detectIndentation": false,
 	"editor.insertSpaces": false,
 	"workbench.tree.indent": 7,
-	"editor.tabSize": 2
+	"editor.tabSize": 2,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
+	}
 }
