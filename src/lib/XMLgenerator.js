@@ -55,17 +55,17 @@ const randomMeasure = _.compose(measureTemplate, _.join(''), () => _.times(rando
 // append placeholder to it
 // replace the placeholder in document with that
 export const appendMeasure = (doc) => _.replace(placeholder, combine([randomMeasure(), placeholder]), doc)
-export const appendLine = _.compose(
-	appendMeasure,
-	appendMeasure,
-	appendMeasure,
-	appendMeasure
-)
-export const getDoc = _.compose(
-	appendLine,
-	appendLine,
-	appendLine,
-	appendLine,
+
+
+export const appendLine = _.curry((width, doc) => (
+	Array(width).fill().reduce((acc, x) => appendMeasure(acc), doc)
+))
+
+export const getDoc = width => _.compose(
+	appendLine(width),
+	appendLine(width),
+	appendLine(width),
+	appendLine(width),
 	docTemplate,
 	randomMeasure,
-)
+)()
