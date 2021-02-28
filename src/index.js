@@ -1,12 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ErrorBoundary from './components/ErrorBoundary'
+import { GlobalStyle, StyleThemeProvider } from './lib/globalStyles'
+import { StateMachineProvider } from './hooks/useStateMachine'
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
 	<React.StrictMode>
-		<App />
+		<ErrorBoundary>
+			<GlobalStyle />
+			<StyleThemeProvider>
+				<StateMachineProvider>
+					<App />
+				</StateMachineProvider>
+			</StyleThemeProvider>
+		</ErrorBoundary>,
 	</React.StrictMode>,
 	document.getElementById('root')
 );
