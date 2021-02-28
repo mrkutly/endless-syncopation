@@ -1,6 +1,7 @@
 html {
 	scroll-behavior: smooth;
 }
-.App {
-  text-align: center;
+
+#letsgobb {
+	width: 100vw;
 }

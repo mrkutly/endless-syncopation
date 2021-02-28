@@ -1,5 +1,11 @@
 import * as _ from 'ramda'
-import { docTemplate, measureTemplate, placeholder, restTemplate, noteTemplate, Durations } from './templates'
+import {
+	docTemplate,
+	measureTemplate,
+	restTemplate,
+	noteTemplate,
+	Durations,
+} from './templates'
 
 const beats = ['0000', '1000', '0100', '0010', '0001', '1100', '1010', '1001', '0110', '0101', '0011', '1110', '1101', '1011', '0111', '1111']
 
@@ -51,21 +57,8 @@ const randomBeatXML = () => translateBeat(randomBeat())
 
 const randomMeasure = _.compose(measureTemplate, _.join(''), () => _.times(randomBeatXML, 2))
 
-// get a random measure
-// append placeholder to it
-// replace the placeholder in document with that
-export const appendMeasure = (doc) => _.replace(placeholder, combine([randomMeasure(), placeholder]), doc)
-
-
-export const appendLine = _.curry((width, doc) => (
-	Array(width).fill().reduce((acc, x) => appendMeasure(acc), doc)
-))
-
-export const getDoc = width => _.compose(
-	appendLine(width),
-	appendLine(width),
-	appendLine(width),
-	appendLine(width),
+export const getDoc = _.compose(
 	docTemplate,
-	randomMeasure,
-)()
+	combine,
+	_.times(randomMeasure)
+)

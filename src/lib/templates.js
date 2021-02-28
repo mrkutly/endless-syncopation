@@ -45,8 +45,6 @@ export const measureTemplate = (notes) => `
 </measure>
 `
 
-export const placeholder = `<!--PLACEHOLDER-->`
-
 export const docTemplate = (measures) => `
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE score-partwise PUBLIC
@@ -63,7 +61,6 @@ export const docTemplate = (measures) => `
   </part-list>
   <part id="P1">
 		${measures}
-		${placeholder}
   </part>
 </score-partwise>
 `
