@@ -1,9 +1,13 @@
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { Statuses, actions, useStateMachine } from './useStateMachine'
 
 export const useScroll = () => {
 	const [state, dispatch] = useStateMachine()
-	const interval = useRef(0)
+	const interval = useRef()
+
+	const clearScroll = useCallback( () => {
+		if (interval.current) clearInterval(interval.current)
+	}, [interval])
 
 	useEffect(() => {
 		if (interval.current && state !== Statuses.scrolling) {
@@ -20,12 +24,8 @@ export const useScroll = () => {
 			}, 2000)
 		}
 		
-		return () => {
-			if (interval.current) clearInterval(interval.current)
-		}
-	}, [state, dispatch])
+		return clearScroll
+	}, [state, dispatch, clearScroll])
 
-	return () => {
-		if (interval.current) clearInterval(interval.current)
-	}
+	return clearScroll
 }

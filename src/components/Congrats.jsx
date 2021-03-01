@@ -1,10 +1,10 @@
 import { useCallback } from 'react'
 import { PrimaryButton } from 'waskode'
+import { noop, tryCatch, Identity } from'../lib/utils'
 import { getDoc } from'../lib/XMLgenerator'
 import { getDisplay } from'../lib/osmd'
 import { useConfetti } from '../hooks/useConfetti'
 import { useRenderExercise } from '../hooks/useRenderExercise'
-
 
 const Congrats = ({ clearScroll, numMeasures }) => {
 	const renderExercise = useRenderExercise()
@@ -13,13 +13,17 @@ const Congrats = ({ clearScroll, numMeasures }) => {
 
 	const startOver = useCallback(() => {
 		clearScroll()
-		const display = getDisplay()
 	
-		try { display.clear() }
-		catch (e) { console.log(e.message) }
-
-		const doc = getDoc(numMeasures)
-		renderExercise(doc)
+		Identity(getDisplay())
+			.chain((display) => tryCatch(() => display.clear()))
+			.fold(
+				console.log,
+				noop
+			)
+			
+		Identity(numMeasures)
+			.map(getDoc)
+			.chain(renderExercise)
 	}, [numMeasures, renderExercise, clearScroll])
 
 	return (

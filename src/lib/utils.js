@@ -1,5 +1,6 @@
 import * as _ from 'ramda'
 
+export const noop = () => {}
 export const isEven = _.compose(_.equals(0), _.modulo(_.__, 2))
 export const isOdd = _.complement(isEven)
 

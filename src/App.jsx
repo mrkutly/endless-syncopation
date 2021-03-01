@@ -1,8 +1,9 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState } from 'react'
+import { noop, tryCatch } from './lib/utils'
 import { getDisplay } from './lib/osmd'
 import Controls from './components/Controls'
 import Congrats from './components/Congrats'
-import { actions, Statuses, useStateMachine } from './hooks/useStateMachine'
+import { Statuses, useStateMachine } from './hooks/useStateMachine'
 import { useScroll } from './hooks/useScroll'
 import './App.css'
 
@@ -17,17 +18,18 @@ const App = () => {
 	const clearScroll = useScroll()
 
 	useEffect(() => {
-		const display = getDisplay()
 		return () => {
-			try { display.clear() }
-			catch (e) {}
+			tryCatch(() => getDisplay().clear())
+				.fold(console.log, noop)
 		}
 	}, [])
 
 	return (
 		<div className="App">
-			<h1>Ted Reed Syncopation Bot</h1>
-			<Controls numMeasures={numMeasures} />
+			<header style={{ padding: '0 20px' }}>
+				<h1>Ted Reed Syncopation Bot</h1>
+				<Controls numMeasures={numMeasures} />
+			</header>
 			{state === Statuses.loading && <div>Getting a new exercise for you...</div>}
 			{state === Statuses.finished && <Congrats clearScroll={clearScroll} numMeasures={numMeasures} />}
 			<div id="letsgobb" />

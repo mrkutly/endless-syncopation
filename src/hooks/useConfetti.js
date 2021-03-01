@@ -4,6 +4,7 @@ import { useStateMachine, Statuses } from './useStateMachine'
 
 export const useConfetti = () => {
 	const [state] = useStateMachine()
+	
 	useEffect(() => {
 		if (state === Statuses.finished) {
 			confetti({
