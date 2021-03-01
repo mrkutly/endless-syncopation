@@ -1,11 +1,15 @@
 import { useCallback, useEffect, useRef } from 'react'
-import { Statuses, actions, useStateMachine } from './useStateMachine'
+import { prop } from 'ramda'
+import { useDispatch, useSelector } from 'react-redux'
+import { Statuses } from '../store/stateMachine/reducer'
+import * as actions from '../store/stateMachine/actions'
 
-export const useScroll = () => {
-	const [state, dispatch] = useStateMachine()
+const useScroll = () => {
+	const dispatch = useDispatch()
+	const state = useSelector(prop('status'))
 	const interval = useRef()
 
-	const clearScroll = useCallback( () => {
+	const clearScroll = useCallback(() => {
 		if (interval.current) clearInterval(interval.current)
 	}, [interval])
 
@@ -19,13 +23,15 @@ export const useScroll = () => {
 			interval.current = setInterval(() => {
 				window.scrollBy(0, 100)
 				if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-					dispatch(actions.STOP)
+					dispatch(actions.stop())
 				}
 			}, 2000)
 		}
-		
+
 		return clearScroll
 	}, [state, dispatch, clearScroll])
 
 	return clearScroll
 }
+
+export default useScroll

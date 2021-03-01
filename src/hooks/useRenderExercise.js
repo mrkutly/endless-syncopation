@@ -1,27 +1,30 @@
 /* eslint-disable no-unused-vars */
 import { useCallback } from 'react'
-import { actions, useStateMachine } from './useStateMachine'
-import { getDisplay } from '../lib/osmd'
+import { useDispatch } from 'react-redux'
+import * as actions from '../store/stateMachine/actions'
+import getDisplay from '../lib/osmd'
 import { noop, Identity, tryCatch } from '../lib/utils'
 
-export const useRenderExercise = () => {
-	const [_state, dispatch] = useStateMachine()
+const useRenderExercise = () => {
+	const dispatch = useDispatch()
 
 	const renderExercise = useCallback((doc) => {
-		dispatch(actions.LOAD_DOC)
+		dispatch(actions.loadDoc())
 		Identity(getDisplay())
-			.chain(display => tryCatch(
+			.chain((display) => tryCatch(
 				() => {
 					display
 						.load(doc)
 						.then(() => {
-							dispatch(actions.PLAY)
 							display.render()
+							dispatch(actions.success())
 						})
-				}
+				},
 			))
 			.fold(console.log, noop)
 	}, [dispatch])
 
 	return renderExercise
 }
+
+export default useRenderExercise

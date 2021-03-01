@@ -5,5 +5,22 @@
 	"editor.tabSize": 2,
 	"editor.codeActionsOnSave": {
 		"source.fixAll.eslint": true
-	}
+	},
+	"workbench.colorCustomizations": {
+		"activityBar.activeBackground": "#8ce8bb",
+		"activityBar.activeBorder": "#b07ae4",
+		"activityBar.background": "#8ce8bb",
+		"activityBar.foreground": "#15202b",
+		"activityBar.inactiveForeground": "#15202b99",
+		"activityBarBadge.background": "#b07ae4",
+		"activityBarBadge.foreground": "#15202b",
+		"statusBar.background": "#62dfa2",
+		"statusBar.foreground": "#15202b",
+		"statusBarItem.hoverBackground": "#38d689",
+		"titleBar.activeBackground": "#62dfa2",
+		"titleBar.activeForeground": "#15202b",
+		"titleBar.inactiveBackground": "#62dfa299",
+		"titleBar.inactiveForeground": "#15202b99"
+	},
+	"peacock.color": "#62dfa2"
 }
