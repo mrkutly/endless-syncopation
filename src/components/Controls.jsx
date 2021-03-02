@@ -6,15 +6,20 @@ import { PrimaryButton as Button } from 'waskode'
 import { prop } from 'ramda'
 import getDoc from '../lib/XMLgenerator'
 import getDisplay from '../lib/osmd'
-import { Statuses } from '../store/stateMachine/reducer'
+import { Statuses } from '../store/types'
 import * as actions from '../store/stateMachine/actions'
+import { getNumMeasures, getTempo } from '../store/form/actions'
 import useRenderExercise from '../hooks/useRenderExercise'
 import { Identity, noop, tryCatch } from '../lib/utils'
+import { validateTempo, validateNumMeasures } from '../lib/validation'
 
-const Controls = ({ numMeasures, clearScroll }) => {
+const Controls = ({ clearScroll }) => {
 	const state = useSelector(prop('status'))
+	const tempo = useSelector(getTempo)
+	const numMeasures = useSelector(getNumMeasures)
 	const dispatch = useDispatch()
 	const renderExercise = useRenderExercise()
+	const formValid = () => validateTempo(tempo) && validateNumMeasures(numMeasures)
 
 	const begin = () => {
 		Identity(numMeasures)
@@ -52,24 +57,19 @@ const Controls = ({ numMeasures, clearScroll }) => {
 		if (state === Statuses.paused) play()
 	}
 
-	const loading = () => {
-		console.log(state)
-		return ![Statuses.paused, Statuses.scrolling].includes(state)
-	}
-
 	return (
 		<ControlStyles>
 			<Button
-				disabled={![Statuses.finished, Statuses.paused, Statuses.idle].includes(state)}
+				disabled={![Statuses.finished, Statuses.paused, Statuses.idle].includes(state) || !formValid()}
 				onClick={handleGenerate}
 			>
 				Generate Exercise
 			</Button>
-			<Button disabled={loading()} onClick={handlePauseOrPlay}>
+			<Button disabled={![Statuses.paused, Statuses.scrolling].includes(state)} onClick={handlePauseOrPlay}>
 				{
-					state === Statuses.paused
-						? 'Play'
-						: 'Pause'
+					state === Statuses.scrolling
+						? 'Pause'
+						: 'Play'
 				}
 			</Button>
 		</ControlStyles>

@@ -1,50 +1,20 @@
 import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import { Form, NumberInput } from 'waskode'
-import { and, gte, lte } from 'ramda'
+import { validateNumMeasures, validateTempo } from '../lib/validation'
 import {
-	getNumMeasures, getTempo, setNumMeasures, setTempo,
+	getNumMeasures, getTempo, setNumMeasures, setTempo, getMetronomeEnabled, toggleMetronome,
 } from '../store/form/actions'
 import config from '../config'
-
-const validateMax = (val, max) => and(
-	gte(val, 1),
-	lte(val, max),
-)
-
-const StyledNumberInput = styled(NumberInput)`
-	margin-bottom: 0;
-`
-
-const StyledForm = styled(Form)`
-	> * {
-		margin-bottom: 0;
-		margin-right: 20px;
-	}
-
-	input[type="checkbox"] {
-		margin-left: 12px;
-	}
-
-	input:not([type="checkbox"]) {
-		width: 160px;
-	}
-
-	display: flex;
-	position: sticky;
-	top: 0;
-	padding: 15px;
-	background: white;
-	z-index: 2;
-`
 
 const ExerciseForm = () => {
 	const dispatch = useDispatch()
 	const numMeasures = useSelector(getNumMeasures)
 	const tempo = useSelector(getTempo)
+	// const metronomeEnabled = useSelector(getMetronomeEnabled)
 
-	const numMeasuresValid = validateMax(numMeasures, config.maxNumMeasures)
-	const tempoValid = validateMax(tempo, config.maxTempo)
+	const numMeasuresValid = validateNumMeasures(numMeasures)
+	const tempoValid = validateTempo(tempo)
 
 	return (
 		<StyledForm method="POST" onSubmit={(e) => e.preventDefault()}>
@@ -66,14 +36,85 @@ const ExerciseForm = () => {
 				onChange={(e) => dispatch(setTempo(e.target.value))}
 				validationError={!tempoValid && `Must be between 1 and ${config.maxTempo}`}
 			/>
-			<div>
-				<label htmlFor="metronome-toggle">
-					Play with Metronome
-					<input type="checkbox" id="metronome-toggle" />
+			{/* <div style={{ marginTop: '32px' }}>
+				<label
+					htmlFor="metronome-toggle"
+					className={metronomeEnabled ? 'checkbox checked' : 'checkbox'}
+				>
+					Metronome
+					<input
+						type="checkbox"
+						id="metronome-toggle"
+						aria-hidden="false"
+						checked={metronomeEnabled}
+						onChange={() => dispatch(toggleMetronome())}
+						onKeyPress={() => dispatch(toggleMetronome())}
+					/>
 				</label>
-			</div>
+			</div> */}
 		</StyledForm>
 	)
 }
+
+const StyledNumberInput = styled(NumberInput)`
+	margin-bottom: 0;
+`
+
+const StyledForm = styled(Form)`
+	> * {
+		margin-bottom: 0;
+		margin-right: 20px;
+	}
+
+	input[type="checkbox"] {
+		margin-left: 12px;
+	}
+
+	input:not([type="checkbox"]) {
+		width: 160px;
+	}
+
+	label.checkbox {
+		z-index: 1;
+		padding: 8px 16px;
+		transition: all 0.1s ease;
+		cursor: pointer;
+		background: none;
+		border: 1px solid ${({ theme }) => theme.primary[500]};
+		color: ${({ theme }) => theme.primary[500]};
+
+		&:hover {
+			background: ${({ theme }) => theme.primary[200]};
+			border-color: transparent;
+			color: ${({ theme }) => theme.text.onPrimary[200]};
+		}
+		
+		&:focus {
+			background: ${({ theme }) => theme.primary[200]};
+			border-color: transparent;
+			color: ${({ theme }) => theme.text.onPrimary[200]};
+			outline: 2px solid ${({ theme }) => theme.primary[100]};
+			outline-offset: 4px;
+		}
+		
+		&:active, &.checked {
+			background: ${({ theme }) => theme.primary[100]};
+			border-color: transparent;
+			color: ${({ theme }) => theme.text.onPrimary[100]};
+		}
+	}
+
+	display: flex;
+	position: sticky;
+	top: 0;
+	padding: 15px;
+	background: white;
+	z-index: 2;
+
+	@media screen and (max-width: 580px) {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+	}
+`
 
 export default ExerciseForm

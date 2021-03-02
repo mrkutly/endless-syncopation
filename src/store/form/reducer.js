@@ -1,4 +1,5 @@
 import { merge } from 'ramda'
+import initialState from '../initialState'
 import {
 	tempo,
 	numMeasures,
@@ -8,13 +9,7 @@ import {
 	TOGGLE_METRONOME,
 } from '../types'
 
-const initialState = {
-	[tempo]: 115,
-	[numMeasures]: 80,
-	[metronomeEnabled]: false,
-}
-
-const reducer = (state = initialState, action) => {
+const reducer = (state = initialState.form, action) => {
 	switch (action.type) {
 	case SET_TEMPO:
 		return merge(state, { [tempo]: action.payload })

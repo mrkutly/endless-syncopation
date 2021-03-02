@@ -10,3 +10,11 @@ export const TOGGLE_METRONOME = 'TOGGLE_METRONOME'
 export const tempo = 'tempo'
 export const numMeasures = 'numMeasures'
 export const metronomeEnabled = 'metronomeEnabled'
+
+export const Statuses = {
+	finished: 'finished',
+	idle: 'idle',
+	loading: 'loading',
+	paused: 'paused',
+	scrolling: 'scrolling',
+}

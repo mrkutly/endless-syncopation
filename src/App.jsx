@@ -2,12 +2,13 @@ import { useEffect } from 'react'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import { prop } from 'ramda'
+import { Loading } from 'waskode'
 import ExerciseForm from './components/ExerciseForm'
 import { getNumMeasures } from './store/form/actions'
 import { noop, tryCatch } from './lib/utils'
 import getDisplay from './lib/osmd'
 import Controls from './components/Controls'
-import { Statuses } from './store/stateMachine/reducer'
+import { Statuses } from './store/types'
 import useScroll from './hooks/useScroll'
 import './App.css'
 
@@ -32,8 +33,8 @@ const App = () => {
 			</header>
 			<ExerciseForm />
 			<InnerStyles>
-				{status === Statuses.loading && <div>Getting a new exercise for you...</div>}
-				<div id="letsgobb" style={{ maxWidth: '1530px' }} />
+				{status === Statuses.loading && <Loading />}
+				<div id="letsgobb" style={{ maxWidth: '1530px', opacity: status === Statuses.loading ? 0 : 1 }} />
 			</InnerStyles>
 			<Controls numMeasures={numMeasures} clearScroll={clearScroll} />
 		</div>

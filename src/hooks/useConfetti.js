@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { prop } from 'ramda'
 import confetti from 'canvas-confetti'
-import { Statuses } from '../store/stateMachine/reducer'
+import { Statuses } from '../store/types'
 
 const useConfetti = () => {
 	const state = useSelector(prop('status'))

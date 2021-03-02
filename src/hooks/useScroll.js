@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react'
 import { prop } from 'ramda'
 import { useDispatch, useSelector } from 'react-redux'
-import { Statuses } from '../store/stateMachine/reducer'
+import { Statuses } from '../store/types'
 import * as actions from '../store/stateMachine/actions'
 
 const useScroll = () => {

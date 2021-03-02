@@ -1,20 +1,14 @@
+import initialState from '../initialState'
 import {
 	LOAD_DOC,
 	PLAY,
 	PAUSE,
 	STOP,
 	SUCCESS,
+	Statuses,
 } from '../types'
 
-export const Statuses = {
-	finished: 'finished',
-	idle: 'idle',
-	loading: 'loading',
-	paused: 'paused',
-	scrolling: 'scrolling',
-}
-
-const reducer = (state = Statuses.idle, action) => {
+const reducer = (state = initialState.status, action) => {
 	switch (state) {
 	case Statuses.idle: {
 		if (action.type === LOAD_DOC) {
