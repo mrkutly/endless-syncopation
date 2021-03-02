@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import { prop } from 'ramda'
-import { Loading } from 'waskode'
+import Loading from './components/CenteredLoading'
 import ExerciseForm from './components/ExerciseForm'
 import { getNumMeasures } from './store/form/actions'
 import { noop, tryCatch } from './lib/utils'
@@ -12,10 +12,6 @@ import Controls from './components/Controls'
 import { Statuses } from './store/types'
 import useScroll from './hooks/useScroll'
 import './App.css'
-
-// TODO: figure out width of line based on window width
-// TODO: figure out scroll speed based on width of line and metronome markings
-// TODO: implement tempo and numMeasure inputs
 
 const App = () => {
 	const status = useSelector(prop('status'))

@@ -29,7 +29,7 @@ const Controls = ({ clearScroll }) => {
 	}
 
 	useEffect(() => {
-		begin()
+		setTimeout(begin, 500)
 	}, [])
 
 	const startOver = () => {
