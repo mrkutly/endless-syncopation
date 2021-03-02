@@ -3,7 +3,12 @@ import styled from 'styled-components'
 import { Form, NumberInput } from 'waskode'
 import { validateNumMeasures, validateTempo } from '../lib/validation'
 import {
-	getNumMeasures, getTempo, setNumMeasures, setTempo, getMetronomeEnabled, toggleMetronome,
+	getNumMeasures,
+	getTempo,
+	setNumMeasures,
+	setTempo,
+	// getMetronomeEnabled,
+	// toggleMetronome,
 } from '../store/form/actions'
 import config from '../config'
 

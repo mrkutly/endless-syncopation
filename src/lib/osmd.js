@@ -1,6 +1,6 @@
 import * as osmd from 'opensheetmusicdisplay'
 
-const getDisplay = (function () {
+const getDisplay = (function getDisplay() {
 	let display
 	return () => {
 		if (display) return display

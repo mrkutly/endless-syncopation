@@ -1,7 +1,9 @@
+/* eslint-disable no-console */
 import { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import * as actions from '../store/stateMachine/actions'
 import getDisplay from '../lib/osmd'
+import { fromNullable, noop } from '../lib/utils'
 
 const useRenderExercise = () => {
 	const dispatch = useDispatch()
@@ -18,6 +20,8 @@ const useRenderExercise = () => {
 					setTimeout(() => {
 						dispatch(actions.success())
 						display.render()
+						fromNullable(document.querySelector('#letsgobb'))
+							.fold(noop, (x) => x.scrollIntoView())
 					}, 0)
 				})
 			} catch (e) {

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable react/prop-types */
 import { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
