@@ -1,14 +1,11 @@
 import { useCallback, useEffect, useRef } from 'react'
 import { prop } from 'ramda'
 import { useDispatch, useSelector } from 'react-redux'
-import { fromNullable, Identity } from '../lib/utils'
+import { Identity } from '../lib/utils'
 import { Statuses } from '../store/types'
 import * as actions from '../store/stateMachine/actions'
 
 const msPerBeat = (bpm) => 60000 / bpm
-const totalBeats = (numMeasures) => numMeasures * 4
-const totalMs = (numMeasures, bpm) => totalBeats(numMeasures) * msPerBeat(bpm)
-
 const beatsPerLine = (measures) => measures * 4
 const msPerLine = (measures, bpm) => beatsPerLine(measures) * msPerBeat(bpm)
 const measuresPerLine = (width) => {
@@ -20,11 +17,16 @@ const measuresPerLine = (width) => {
 	return 5
 }
 
+const timeToPlayLine = (width, bpm) => (
+	Identity(width)
+		.map(measuresPerLine)
+		.fold((x) => msPerLine(x, bpm))
+)
+
 const useScroll = () => {
 	const dispatch = useDispatch()
 	const state = useSelector(prop('status'))
 	const bpm = useSelector((s) => s.form.tempo)
-	const numMeasures = useSelector((s) => s.form.numMeasures)
 	const interval = useRef()
 	const timeout = useRef()
 
@@ -33,36 +35,40 @@ const useScroll = () => {
 		if (timeout.current) clearTimeout(timeout.current)
 	}, [interval, timeout])
 
-	useEffect(() => {
-		const exerciseLengthMs = totalMs(numMeasures, bpm)
-		const height = fromNullable(document.querySelector('#letsgobb'))
-			.fold(
-				() => 5000,
-				(x) => x.offsetHeight,
-			)
+	const scroll = (window, document) => {
+		window.scrollBy(0, 120)
+		if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+			dispatch(actions.pause())
+		}
+	}
 
+	// handle starting and stopping scroll
+	useEffect(() => {
 		if (interval.current && state !== Statuses.scrolling) {
 			interval.current = null
 			clearInterval(interval.current)
 		}
 
 		if (state === Statuses.scrolling && !interval.current) {
-			const timeToPlayLine = Identity(document.body.offsetWidth)
-				.map(measuresPerLine)
-				.fold((x) => msPerLine(x, bpm))
-
+			const delay = timeToPlayLine(document.body.offsetWidth, bpm)
 			timeout.current = setTimeout(() => {
-				interval.current = setInterval(() => {
-					window.scrollBy(0, 120)
-					if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-						dispatch(actions.pause())
-					}
-				}, timeToPlayLine)
-			}, timeToPlayLine)
+				interval.current = setInterval(() => scroll(window, document), delay)
+			}, delay)
 		}
 
 		return clearScroll
 	}, [state, dispatch, clearScroll, bpm])
+
+	// handle changing scroll speed when tempo changes
+	useEffect(() => {
+		if (state === Statuses.scrolling) {
+			clearScroll()
+			const delay = timeToPlayLine(document.body.offsetWidth, bpm)
+			interval.current = setInterval(() => scroll(window, document), delay)
+		}
+
+		return clearScroll
+	}, [bpm])
 
 	return clearScroll
 }
