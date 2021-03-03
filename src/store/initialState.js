@@ -7,4 +7,5 @@ export default {
 		[types.numMeasures]: 80,
 		[types.metronomeEnabled]: false,
 	},
+	welcomeSeen: localStorage.getItem(types.WELCOME_SEEN),
 }

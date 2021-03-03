@@ -17,6 +17,7 @@ import { validateTempo, validateNumMeasures } from '../lib/validation'
 const Controls = ({ clearScroll }) => {
 	const state = useSelector(prop('status'))
 	const tempo = useSelector(getTempo)
+	const welcomeSeen = useSelector(prop('welcomeSeen'))
 	const numMeasures = useSelector(getNumMeasures)
 	const dispatch = useDispatch()
 	const renderExercise = useRenderExercise()
@@ -29,8 +30,10 @@ const Controls = ({ clearScroll }) => {
 	}
 
 	useEffect(() => {
-		setTimeout(begin, 500)
-	}, [])
+		if (welcomeSeen === 'true') {
+			setTimeout(begin, 500)
+		}
+	}, [welcomeSeen])
 
 	const startOver = () => {
 		clearScroll()

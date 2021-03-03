@@ -8,8 +8,11 @@ const Centered = styled.div`
 	text-align: center;
 `
 
-const CenteredLoading = ({ message }) => (
-	<Centered><Loading message={message} /></Centered>
+const CenteredLoading = ({ message, children }) => (
+	<Centered>
+		{children}
+		<Loading message={message} />
+	</Centered>
 )
 
 export default CenteredLoading

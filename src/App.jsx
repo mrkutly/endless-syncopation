@@ -9,6 +9,7 @@ import { getNumMeasures } from './store/form/actions'
 import { noop, tryCatch } from './lib/utils'
 import getDisplay from './lib/osmd'
 import Controls from './components/Controls'
+import Welcome from './components/Welcome'
 import { Statuses } from './store/types'
 import useScroll from './hooks/useScroll'
 import useMetronome from './hooks/useMetronome'
@@ -32,8 +33,9 @@ const App = () => {
 				<h1>Ted Reed Syncopation Bot</h1>
 			</header>
 			<ExerciseForm />
+			<Welcome />
 			<InnerStyles>
-				{status === Statuses.loading && <Loading />}
+				{status === Statuses.loading && <Loading><h3>Generating an exercise for you</h3></Loading>}
 				<div id="letsgobb" style={{ maxWidth: '1530px', opacity: status === Statuses.loading ? 0 : 1 }} />
 			</InnerStyles>
 			<Controls numMeasures={numMeasures} clearScroll={clearScroll} />
