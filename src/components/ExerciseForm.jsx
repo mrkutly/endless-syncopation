@@ -7,8 +7,8 @@ import {
 	getTempo,
 	setNumMeasures,
 	setTempo,
-	// getMetronomeEnabled,
-	// toggleMetronome,
+	getMetronomeEnabled,
+	toggleMetronome,
 } from '../store/form/actions'
 import config from '../config'
 
@@ -16,7 +16,7 @@ const ExerciseForm = () => {
 	const dispatch = useDispatch()
 	const numMeasures = useSelector(getNumMeasures)
 	const tempo = useSelector(getTempo)
-	// const metronomeEnabled = useSelector(getMetronomeEnabled)
+	const metronomeEnabled = useSelector(getMetronomeEnabled)
 
 	const numMeasuresValid = validateNumMeasures(numMeasures)
 	const tempoValid = validateTempo(tempo)
@@ -39,9 +39,9 @@ const ExerciseForm = () => {
 				min="0"
 				max={String(config.maxTempo)}
 				onChange={(e) => dispatch(setTempo(e.target.value))}
-				validationError={!tempoValid && `Must be between 1 and ${config.maxTempo}`}
+				validationError={!tempoValid && `Must be between ${config.minTempo} and ${config.maxTempo}`}
 			/>
-			{/* <div style={{ marginTop: '32px' }}>
+			<div style={{ marginTop: '32px' }}>
 				<label
 					htmlFor="metronome-toggle"
 					className={metronomeEnabled ? 'checkbox checked' : 'checkbox'}
@@ -56,7 +56,7 @@ const ExerciseForm = () => {
 						onKeyPress={() => dispatch(toggleMetronome())}
 					/>
 				</label>
-			</div> */}
+			</div>
 		</StyledForm>
 	)
 }

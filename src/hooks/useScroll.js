@@ -47,22 +47,22 @@ const useScroll = () => {
 		}
 
 		if (state === Statuses.scrolling && !interval.current) {
-			const timeToStart = Identity(document.body.offsetWidth)
+			const timeToPlayLine = Identity(document.body.offsetWidth)
 				.map(measuresPerLine)
 				.fold((x) => msPerLine(x, bpm))
 
 			timeout.current = setTimeout(() => {
 				interval.current = setInterval(() => {
-					window.scrollBy(0, 100)
+					window.scrollBy(0, 120)
 					if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-						dispatch(actions.stop())
+						dispatch(actions.pause())
 					}
-				}, Math.round(exerciseLengthMs / height) * 100)
-			}, timeToStart)
+				}, timeToPlayLine)
+			}, timeToPlayLine)
 		}
 
 		return clearScroll
-	}, [state, dispatch, clearScroll])
+	}, [state, dispatch, clearScroll, bpm])
 
 	return clearScroll
 }

@@ -11,12 +11,15 @@ import getDisplay from './lib/osmd'
 import Controls from './components/Controls'
 import { Statuses } from './store/types'
 import useScroll from './hooks/useScroll'
+import useMetronome from './hooks/useMetronome'
 import './App.css'
 
 const App = () => {
 	const status = useSelector(prop('status'))
 	const numMeasures = useSelector(getNumMeasures)
 	const clearScroll = useScroll()
+
+	useMetronome()
 
 	useEffect(() => () => {
 		tryCatch(() => getDisplay().clear())

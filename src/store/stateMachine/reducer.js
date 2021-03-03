@@ -3,7 +3,6 @@ import {
 	LOAD_DOC,
 	PLAY,
 	PAUSE,
-	STOP,
 	SUCCESS,
 	Statuses,
 } from '../types'
@@ -24,9 +23,6 @@ const reducer = (state = initialState.status, action) => {
 		if (action.type === PLAY) {
 			return Statuses.scrolling
 		}
-		if (action.type === STOP) {
-			return Statuses.finished
-		}
 		return state
 	}
 
@@ -38,18 +34,8 @@ const reducer = (state = initialState.status, action) => {
 	}
 
 	case Statuses.scrolling: {
-		if (action.type === STOP) {
-			return Statuses.paused
-		}
 		if (action.type === PAUSE) {
 			return Statuses.paused
-		}
-		return state
-	}
-
-	case Statuses.finished: {
-		if (action.type === LOAD_DOC) {
-			return Statuses.loading
 		}
 		return state
 	}
