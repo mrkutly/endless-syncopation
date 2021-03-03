@@ -11191,10 +11191,10 @@ walker@^1.0.7, walker@~1.0.5:
   dependencies:
     makeerror "1.0.x"
 
-waskode@^1.0.12:
-  version "1.0.14"
-  resolved "https://registry.yarnpkg.com/waskode/-/waskode-1.0.14.tgz#08f6c495236185f384984989312b5c96cdce7f79"
-  integrity sha512-4qDFYWm4aKdvx1IHx53tyf3E9wjCmc0UB/gLZsHYIQFCoaVtipCQh2LLwThtjsM5uaNI9seZBtf5LI9KYCG7ew==
+waskode@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/waskode/-/waskode-2.0.2.tgz#f6e0cff812c792b6d9f053ed17b48b5cad37c4b7"
+  integrity sha512-V7LQMY7g/C6+zzpWmlk33gjSRJDFN9uxq1mJ3XUBLbTuUse2QF6V6vEPbmYEImQ5l52ZO9ryZV3DvN6dzQ2AOQ==
   dependencies:
     polished "^3.6.5"
 
