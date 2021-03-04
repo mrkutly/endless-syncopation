@@ -28,12 +28,16 @@ const Welcome = () => {
 	if (seen === 'true') return null
 
 	return (
-		<WelcomeStyles onClick={(e) => e.target.className.includes('outer') && handleClose()} className="outer">
+		<WelcomeStyles
+			onClick={(e) => e.target.className.includes('outer') && handleClose()}
+			className="outer"
+			data-testid="outer-div"
+		>
 			<div>
 				<TertiaryButton aria-label="close welcome message" onClick={handleClose}>&times;</TertiaryButton>
 				<h2>Hi!</h2>
 				<p>
-					The Ted Reed Syncopation bot is here to help you practice by
+					This site is here to help you practice by
 					randomly generating exercises for you. These are based on
 					the exercises from the book
 					{' '}

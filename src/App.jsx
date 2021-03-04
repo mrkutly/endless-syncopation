@@ -30,7 +30,7 @@ const App = () => {
 	return (
 		<div className="App">
 			<header style={{ padding: '0 20px' }}>
-				<h1>Ted Reed Syncopation Bot</h1>
+				<h1>Syncopation</h1>
 			</header>
 			<ExerciseForm />
 			<Welcome />

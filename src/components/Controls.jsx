@@ -69,7 +69,10 @@ const Controls = ({ clearScroll }) => {
 			>
 				Generate Exercise
 			</Button>
-			<Button disabled={![Statuses.paused, Statuses.scrolling].includes(state)} onClick={handlePauseOrPlay}>
+			<Button
+				disabled={![Statuses.paused, Statuses.scrolling].includes(state) || !validateTempo(tempo)}
+				onClick={handlePauseOrPlay}
+			>
 				{
 					state === Statuses.scrolling
 						? 'Pause'

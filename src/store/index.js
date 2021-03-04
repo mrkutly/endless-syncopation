@@ -5,7 +5,7 @@ import formReducer from './form/reducer'
 import stateReducer from './stateMachine/reducer'
 import welcomeReducer from './welcome/reducer'
 
-const reducer = combineReducers({
+export const reducer = combineReducers({
 	status: stateReducer,
 	form: formReducer,
 	welcomeSeen: welcomeReducer,
