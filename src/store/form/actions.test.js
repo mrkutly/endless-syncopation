@@ -29,7 +29,7 @@ describe('Form Actions', () => {
 		})
 	})
 
-	test('setTempo', () => {
+	test('toggleMetronome', () => {
 		expect(actions.toggleMetronome()).toEqual({
 			type: types.TOGGLE_METRONOME,
 		})
