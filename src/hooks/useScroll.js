@@ -36,7 +36,7 @@ const useScroll = () => {
 	}, [interval, timeout])
 
 	const scroll = (window, document) => {
-		window.scrollBy(0, 120)
+		window.scrollBy({ left: 0, top: 120, behavior: 'smooth' })
 		if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
 			dispatch(actions.pause())
 		}
