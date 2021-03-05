@@ -19,6 +19,7 @@ module.exports = {
 		'no-underscore-dangle': 0,
 		'no-unused-vars': 1,
 		'no-sequences': 1,
+		'no-param-reassign': 0,
 		'react/react-in-jsx-scope': 0,
 		'react/jsx-indent': [
 			2,

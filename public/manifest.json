@@ -16,9 +16,14 @@
       "src": "icon368.png",
       "type": "image/png",
       "sizes": "368X368"
+    },
+    {
+      "src": "icon512.png",
+      "type": "image/png",
+      "sizes": "512X512"
     }
   ],
-  "start_url": ".",
+  "start_url": "syncopation.xyz",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"

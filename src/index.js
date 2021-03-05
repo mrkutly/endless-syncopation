@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import smoothscroll from 'smoothscroll-polyfill'
 import store from './store'
 import ErrorBoundary from './components/ErrorBoundary'
+import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 import { GlobalStyle, StyleThemeProvider } from './lib/globalStyles'
 import './index.css'
 import App from './App'
@@ -24,3 +25,5 @@ ReactDOM.render(
 	</React.StrictMode>,
 	document.getElementById('root'),
 )
+
+serviceWorkerRegistration.register()
