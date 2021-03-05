@@ -95,6 +95,7 @@ const WelcomeStyles = styled.div`
 	display: grid;
 	background: #00000066;
 	position: fixed;
+	overflow-y: scroll;
 	height: 100vh;
 	width: 100vw;
 

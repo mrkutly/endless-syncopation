@@ -12,7 +12,7 @@ import {
 } from '../store/form/actions'
 import config from '../config'
 
-const ExerciseForm = () => {
+const ExerciseForm = ({ id }) => {
 	const dispatch = useDispatch()
 	const numMeasures = useSelector(getNumMeasures)
 	const tempo = useSelector(getTempo)
@@ -22,12 +22,14 @@ const ExerciseForm = () => {
 	const tempoValid = validateTempo(tempo)
 
 	return (
-		<StyledForm method="POST" onSubmit={(e) => e.preventDefault()}>
+		<StyledForm method="POST" onSubmit={(e) => e.preventDefault()} id={id}>
 			<StyledNumberInput
 				label="Number of measures"
 				name="numMeasures"
 				value={numMeasures}
 				min="0"
+				pattern="[0-9]{1,3}"
+				inputmode="numeric"
 				max={String(config.maxNumMeasures)}
 				onChange={(e) => dispatch(setNumMeasures(e.target.value))}
 				validationError={!numMeasuresValid && `Must be between 1 and ${config.maxNumMeasures}`}
@@ -37,6 +39,8 @@ const ExerciseForm = () => {
 				name="tempo"
 				value={tempo}
 				min="0"
+				pattern="[0-9]{2,3}"
+				inputmode="numeric"
 				max={String(config.maxTempo)}
 				onChange={(e) => dispatch(setTempo(e.target.value))}
 				validationError={!tempoValid && `Must be between ${config.minTempo} and ${config.maxTempo}`}
