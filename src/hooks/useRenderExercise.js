@@ -21,7 +21,7 @@ const useRenderExercise = () => {
 						dispatch(actions.success())
 						display.render()
 						fromNullable(document.querySelector('#letsgobb'))
-							.fold(noop, (x) => x.scrollIntoView())
+							.fold(noop, (x) => x.scrollIntoView({ behavior: 'smooth' }))
 					}, 0)
 				})
 			} catch (e) {

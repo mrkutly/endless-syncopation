@@ -2,11 +2,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
+import smoothscroll from 'smoothscroll-polyfill'
 import store from './store'
 import ErrorBoundary from './components/ErrorBoundary'
 import { GlobalStyle, StyleThemeProvider } from './lib/globalStyles'
 import './index.css'
 import App from './App'
+
+smoothscroll.polyfill()
 
 ReactDOM.render(
 	<React.StrictMode>
