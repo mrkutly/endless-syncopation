@@ -23,7 +23,7 @@
       "sizes": "512X512"
     }
   ],
-  "start_url": "syncopation.xyz",
+  "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
