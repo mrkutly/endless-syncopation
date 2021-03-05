@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import { prop } from 'ramda'
 import Loading from './components/CenteredLoading'
-import ExerciseForm from './components/ExerciseForm'
+import ResponsiveExerciseForm from './components/ResponsiveExerciseForm'
 import { getNumMeasures } from './store/form/actions'
 import { noop, tryCatch } from './lib/utils'
 import getDisplay from './lib/osmd'
@@ -29,13 +29,13 @@ const App = () => {
 
 	return (
 		<div className="App">
-			<header style={{ padding: '0 20px' }}>
+			<HeaderStyles style={{ padding: '0 20px' }}>
 				<h1>Syncopation for the Hypermodern Drummer</h1>
-			</header>
-			<ExerciseForm />
+			</HeaderStyles>
+			<ResponsiveExerciseForm />
 			<Welcome />
+			{status === Statuses.loading && <Loading><h3>Generating an exercise for you</h3></Loading>}
 			<InnerStyles>
-				{status === Statuses.loading && <Loading><h3>Generating an exercise for you</h3></Loading>}
 				<div id="letsgobb" style={{ maxWidth: '1530px', opacity: status === Statuses.loading ? 0 : 1 }} />
 			</InnerStyles>
 			<Controls numMeasures={numMeasures} clearScroll={clearScroll} />
@@ -46,7 +46,25 @@ const App = () => {
 const InnerStyles = styled.main`
 	max-width: 1550px;
 	margin: 0 auto 50px;
-	padding: 0 10px;
+	
+	@media screen and (min-width: 581px) {
+		padding: 0 10px;
+	}
+`
+
+const HeaderStyles = styled.header`
+	h1 {
+		margin-left: 20px;
+		margin-right: 20px;
+	}
+
+	@media screen and (max-width: 580px) {
+		position:absolute;
+		max-width: calc(100vw - 80px);
+		h1 {
+			font-size: 1.5rem;
+		}
+	}
 `
 
 export default App

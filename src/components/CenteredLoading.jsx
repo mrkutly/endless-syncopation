@@ -6,6 +6,7 @@ const Centered = styled.div`
 	top: 40vh;
 	width: 100vw;
 	text-align: center;
+	padding: 0 20px;
 `
 
 const CenteredLoading = ({ message, children }) => (
