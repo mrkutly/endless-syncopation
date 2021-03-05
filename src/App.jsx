@@ -29,14 +29,14 @@ const App = () => {
 
 	return (
 		<div className="App">
-			<HeaderStyles style={{ padding: '0 20px' }}>
+			<HeaderStyles>
 				<h1>Syncopation for the Hypermodern Drummer</h1>
 			</HeaderStyles>
 			<ResponsiveExerciseForm />
 			<Welcome />
 			{status === Statuses.loading && <Loading><h3>Generating an exercise for you</h3></Loading>}
 			<InnerStyles>
-				<div id="letsgobb" style={{ maxWidth: '1530px', opacity: status === Statuses.loading ? 0 : 1 }} />
+				<div id="letsgobb" style={{ opacity: status === Statuses.loading ? 0 : 1 }} />
 			</InnerStyles>
 			<Controls numMeasures={numMeasures} clearScroll={clearScroll} />
 		</div>
@@ -44,17 +44,18 @@ const App = () => {
 }
 
 const InnerStyles = styled.main`
-	max-width: 1550px;
 	margin: 0 auto 50px;
-	
-	@media screen and (min-width: 581px) {
-		padding: 0 10px;
+	max-width: 1550px;
+
+	#letsgobb {
+		max-width: 1550px;
+		width: 100vw;
 	}
 `
 
 const HeaderStyles = styled.header`
+	padding: 0 15px;
 	h1 {
-		margin-left: 20px;
 		margin-right: 20px;
 	}
 
