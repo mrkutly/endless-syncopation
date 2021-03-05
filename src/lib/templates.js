@@ -1,11 +1,11 @@
-import * as _ from 'ramda'
+import { __, curry, prop } from 'ramda'
 
 const quarter = 'quarter'
 const eighth = 'eighth'
 
 export const Durations = { quarter, eighth }
 
-const duration = _.prop(_.__, { [Durations.quarter]: 2, [Durations.eighth]: 1 })
+const duration = prop(__, { [Durations.quarter]: 2, [Durations.eighth]: 1 })
 
 export const restTemplate = (length) => `
 	<note>
@@ -15,7 +15,7 @@ export const restTemplate = (length) => `
 	</note>
 `
 
-export const noteTemplate = _.curry((length, beam) => `
+export const noteTemplate = curry((length, beam) => `
 	<note>
 		<unpitched>
 			<display-step>e</display-step>
