@@ -32,10 +32,6 @@ export const measureTemplate = (notes) => `
 <measure>
 <attributes>
 	<divisions>2</divisions>
-	<time>
-		<beats>4</beats>
-		<beat-type>4</beat-type>
-	</time>
 	<clef>
 		<sign>percussion</sign>
 		<line>2</line>
@@ -62,5 +58,9 @@ export const docTemplate = (measures) => `
   <part id="P1">
 		${measures}
   </part>
+	<time>
+		<beats>4</beats>
+		<beat-type>4</beat-type>
+	</time>
 </score-partwise>
 `
