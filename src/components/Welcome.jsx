@@ -95,13 +95,13 @@ const WelcomeStyles = styled.div`
 	display: grid;
 	background: #00000066;
 	position: fixed;
-	overflow-y: scroll;
 	height: 100vh;
 	width: 100vw;
 
 	div {
 		max-width: 700px;
 		max-height: 900px;
+		overflow-y: scroll;
 		padding: 30px;
 		background: white;
 		margin: auto;
