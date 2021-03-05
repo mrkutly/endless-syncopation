@@ -100,7 +100,7 @@ const WelcomeStyles = styled.div`
 
 	div {
 		max-width: 700px;
-		max-height: 900px;
+		max-height: 80vh;
 		overflow-y: scroll;
 		padding: 30px;
 		background: white;
