@@ -9,12 +9,17 @@ const msPerBeat = (bpm) => 60000 / bpm
 const beatsPerLine = (measures) => measures * 4
 const msPerLine = (measures, bpm) => beatsPerLine(measures) * msPerBeat(bpm)
 const measuresPerLine = (width) => {
-	if (width < 635) return 1
-	if (width < 700) return 1.5
-	if (width < 900) return 2
-	if (width < 1130) return 3
-	if (width < 1330) return 4
-	return 5
+	if (width < 500) return 1
+	if (width < 525) return 1.33
+	if (width < 550) return 1.67
+	if (width < 670) return 2
+	if (width < 710) return 2.67
+	if (width < 820) return 3
+	if (width < 910) return 3.5
+	if (width < 1055) return 4
+	if (width < 1200) return 5
+	if (width < 1385) return 6
+	return 7
 }
 
 const timeToPlayLine = (width, bpm) => (
