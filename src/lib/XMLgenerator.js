@@ -1,4 +1,10 @@
-import * as _ from 'ramda'
+import {
+	__,
+	compose,
+	join,
+	prop,
+	times,
+} from 'ramda'
 import {
 	docTemplate,
 	measureTemplate,
@@ -26,7 +32,7 @@ const beats = [
 	'1111',
 ]
 
-const combine = _.join('')
+const combine = join('')
 const eighthRest = () => restTemplate(Durations.eighth)
 const quarterRest = () => restTemplate(Durations.quarter)
 const quarterNote = () => noteTemplate(Durations.quarter, false)
@@ -50,7 +56,7 @@ const fourBeamedEighthNotes = () => combine([
 	eighthNote('end'),
 ])
 
-const translateBeat = _.prop(_.__, {
+const translateBeat = prop(__, {
 	'0000': halfRest(),
 	1000: halfNote(),
 	'0100': combine([eighthRest(), eighthNote(false), quarterRest()]),
@@ -72,16 +78,16 @@ const translateBeat = _.prop(_.__, {
 const randomBeat = () => beats[Math.floor(Math.random() * beats.length)]
 const randomBeatXML = () => translateBeat(randomBeat())
 
-const randomMeasure = _.compose(
+const randomMeasure = compose(
 	measureTemplate,
 	combine,
-	() => _.times(randomBeatXML, 2),
+	() => times(randomBeatXML, 2),
 )
 
-const getDoc = _.compose(
+const getDoc = compose(
 	docTemplate,
 	combine,
-	_.times(randomMeasure),
+	times(randomMeasure),
 )
 
 export default getDoc

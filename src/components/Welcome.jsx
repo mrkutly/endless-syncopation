@@ -79,6 +79,7 @@ const Welcome = () => {
 				</p>
 				<p>
 					Click
+					{' '}
 					<strong>Play</strong>
 					{' '}
 					to start the auto scrolling.
